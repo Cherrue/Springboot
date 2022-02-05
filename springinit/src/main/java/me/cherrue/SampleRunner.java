@@ -1,13 +1,23 @@
 package me.cherrue;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ArgumentsRunner implements ApplicationRunner {
+public class SampleRunner implements ApplicationRunner {
+    @Value("${cherrue.name")
+    private String name;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        System.out.println("======================");
+        System.out.println(name);
+        System.out.println("======================");
+    }
+
+    private void printProgramArguments(ApplicationArguments args) {
         System.out.println("foo : " + args.containsOption("foo"));
         System.out.println("bar : " + args.containsOption("bar"));
     }
