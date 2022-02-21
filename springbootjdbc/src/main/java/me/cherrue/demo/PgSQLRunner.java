@@ -10,8 +10,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Statement;
 
-
-public class MySQLRunner implements ApplicationRunner {
+@Component
+public class PgSQLRunner implements ApplicationRunner {
     @Autowired
     DataSource dataSource;
 
@@ -22,14 +22,15 @@ public class MySQLRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         try(Connection connection = dataSource.getConnection()) { // java 8 기능
             System.out.println(dataSource.getClass());
+            System.out.println(connection.getMetaData().getDriverName());
             System.out.println(connection.getMetaData().getURL());
             System.out.println(connection.getMetaData().getUserName());
 
-            Statement statement = connection.createStatement();
-            String sql = "CREATE TABLE USER(ID INTEGER NOT NULL, NAME VARCHAR(255), PRIMARY KEY (ID))";
-            statement.executeUpdate(sql);
+//            Statement statement = connection.createStatement();
+//            String sql = "CREATE TABLE ACCOUNT(ID INTEGER NOT NULL, NAME VARCHAR(255), PRIMARY KEY (ID))";
+//            statement.executeUpdate(sql);
         }
 
-        jdbcTemplate.execute("INSERT INTO USER VALUES (1, 'Cherrue')");
+//        jdbcTemplate.execute("INSERT INTO ACCOUNT VALUES (1, 'Cherrue')");
     }
 }
